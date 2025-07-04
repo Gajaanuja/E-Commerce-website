@@ -1,0 +1,44 @@
+<!-- Show empty cart message if no items -->
+<p *ngIf="cartProducts.length === 0" class="text-gray-500">Your cart is empty.</p>
+
+<!-- Show list of cart products -->
+<div *ngIf="cartProducts.length > 0">
+  <app-cart-product 
+    *ngFor="let cartProduct of cartProducts; index as i" 
+    [cartProduct]="cartProduct"
+    (updateCartEvent)="updateCart()">
+  </app-cart-product>
+
+  <div class="total">
+    <strong>Total: </strong> {{ total | currency }}
+  </div>
+</div>
+
+<main class="max-w-screen-lg mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-4">🛒 Your Cart</h1>
+
+  <!-- If cart is empty -->
+  <p *ngIf="cart.length === 0" class="text-gray-600">Your cart is empty.</p>
+
+  <!-- List of items -->
+  <div *ngIf="cart.length > 0" class="space-y-4">
+    <div *ngFor="let product of cart; index as i" class="border p-4 rounded-md shadow-md">
+      <h2 class="text-lg font-semibold">{{ product.name }}</h2>
+      <p>Price: {{ product.price | currency }}</p>
+      <p>Quantity: {{ product.quantity }}</p>
+    </div>
+
+    <!-- Total Price -->
+    <div class="text-right mt-4">
+      <p class="text-xl font-bold">Total: {{ getTotal() | currency }}</p>
+    </div>
+
+    <!-- Place Order Button -->
+    <div class="text-right mt-6">
+      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              (click)="placeOrder()">
+        ✅ Place Order
+      </button>
+    </div>
+  </div>
+</main>
